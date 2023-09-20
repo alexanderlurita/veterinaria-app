@@ -6,7 +6,7 @@ import android.widget.Toast;
 
 public class Utils {
 
-    public static final String URL = "http://192.168.1.116/veterinaria/controllers/";
+    public static final String URL = "http://192.168.0.109/veterinaria/controllers/";
 
     public static void openActivity(Context context, Class activity) {
         Intent intent = new Intent(context, activity);

@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,6 +17,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+
+import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -37,28 +40,23 @@ public class Login extends AppCompatActivity {
         btIniciarSesion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                login();
+                validateInputs();
             }
         });
     }
 
-    private boolean validateInputs() {
+    private void validateInputs() {
         boolean nombreUsuario = etNombreUsuario.getText().toString().trim().isEmpty();
         boolean contrasenia = etContrasenia.getText().toString().trim().isEmpty();
-        return !nombreUsuario && !contrasenia;
-    }
 
-    private void login() {
-        boolean isSuccess = validateInputs();
-
-        if (!isSuccess) {
-            Utils.showToast(context, "Credenciales incorrectas");
+        if (nombreUsuario || contrasenia) {
+            Utils.showToast(context, "Escriba su nombre de usuario y/o contraseña");
         } else {
-            getData();
+            login();
         }
     }
 
-    private void getData() {
+    private void login() {
         String URL = Utils.URL + "cliente.controller.php";
         String nombreUsuario = etNombreUsuario.getText().toString().trim();
         String contrasenia = etContrasenia.getText().toString().trim();
@@ -66,21 +64,34 @@ public class Login extends AppCompatActivity {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    boolean login = jsonObject.getBoolean("login");
+                    String nombres = jsonObject.getString("nombres") + " " + jsonObject.getString("apellidos");
 
+                    if (login) {
+                        Utils.showToast(context, "¡Bienvenido " + nombres + "!");
+                        Utils.openActivity(context, MainActivity.class);
+                    } else {
+                        Utils.showToast(context, jsonObject.getString("message"));
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
+                Log.e("Error", error.toString());
             }
         }){
             @Nullable
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> parametros = new HashMap<>();
-                parametros.put("operacion", "iniciarSesion");
-                parametros.put("nombreUsuario", nombreUsuario);
-                parametros.put("contrasenia", contrasenia);
+                parametros.put("operacion", "login");
+                parametros.put("username", nombreUsuario);
+                parametros.put("password", contrasenia);
                 return parametros;
             }
         };
