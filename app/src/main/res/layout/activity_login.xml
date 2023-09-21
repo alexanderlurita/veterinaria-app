@@ -12,8 +12,8 @@
         android:layout_width="250dp"
         android:layout_height="250dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="80dp"
-        app:srcCompat="@drawable/logo" />
+        android:layout_marginTop="100dp"
+        app:srcCompat="@drawable/logoveterinariasinfondo" />
 
     <EditText
         android:id="@+id/etNombreUsuario"
@@ -23,7 +23,7 @@
         android:layout_below="@id/ivLogo"
         android:layout_marginStart="40dp"
         android:layout_marginEnd="40dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="60dp"
         android:inputType="number"
         android:maxLength="8"
         android:hint="Nombre de usuario" />
@@ -36,7 +36,7 @@
         android:layout_below="@id/etNombreUsuario"
         android:layout_marginStart="40dp"
         android:layout_marginEnd="40dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:maxLength="40"
         android:inputType="textPassword"
         android:hint="Contraseña" />
@@ -49,6 +49,6 @@
         android:layout_below="@id/etContrasenia"
         android:layout_marginStart="40dp"
         android:layout_marginEnd="40dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="30dp"
         android:text="Iniciar sesión" />
 </RelativeLayout>

@@ -49,7 +49,7 @@ public class PetForm extends AppCompatActivity {
     Spinner spListaRazas;
     RadioButton rbMacho, rbHembra;
     ImageView ivFotografia;
-    Button btBuscarCliente, btSeleccionarFoto, btRegistrarMascota;
+    Button btBuscarCliente, btSeleccionarFoto, btRegistrarMascota, btQuitarFoto;
 
     String idCliente, idRaza, nombreMascota, fotografia, color, genero;
     List<String> listaRazas = new ArrayList<>();
@@ -73,10 +73,33 @@ public class PetForm extends AppCompatActivity {
             }
         });
 
+        spListaRazas.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                idRaza = idsRazas.get(position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
         btSeleccionarFoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 showFileChooser();
+            }
+        });
+        btQuitarFoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ivFotografia.setImageBitmap(null);
+            }
+        });
+        btRegistrarMascota.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                validateData();
             }
         });
     }
@@ -98,6 +121,7 @@ public class PetForm extends AppCompatActivity {
                     Utils.showToast(context, "Problemas al registrar");
                 } else {
                     Utils.showToast(context, "Registrado correctamente");
+                    resetUI();
                 }
             }
         }, new Response.ErrorListener() {
@@ -114,7 +138,6 @@ public class PetForm extends AppCompatActivity {
                 parametros.put("idcliente", idCliente);
                 parametros.put("idraza", idRaza);
                 parametros.put("nombre", nombreMascota);
-                fotografia = getStringImagen(bitmap);
                 parametros.put("fotografia", fotografia);
                 parametros.put("color", color);
                 parametros.put("genero", genero);
@@ -140,7 +163,6 @@ public class PetForm extends AppCompatActivity {
             Uri filePath = data.getData();
             try {
                 bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
-                System.out.println(bitmap);
                 ivFotografia.setImageBitmap(bitmap);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -221,6 +243,29 @@ public class PetForm extends AppCompatActivity {
         }
     }
 
+    private void validateData() {
+        nombreMascota = etNombreMascota.getText().toString().trim();
+        color = etColor.getText().toString().trim();
+        genero = rbMacho.isChecked() ? "M" : "H";
+        fotografia = ivFotografia.getDrawable() != null ? getStringImagen(bitmap) : "";
+
+        if (idCliente.isEmpty() || idRaza.isEmpty() || nombreMascota.isEmpty() || color.isEmpty() || genero.isEmpty()) {
+            Utils.showToast(context, "Complete todos los datos");
+        } else {
+            registerPet();
+        }
+    }
+
+    private void resetUI() {
+        spListaRazas.setSelection(0);
+        etNombreMascota.setText(null);
+        etColor.setText(null);
+        rbMacho.setChecked(true);
+        ivFotografia.setImageBitmap(null);
+
+        etDNIBuscar.requestFocus();
+    }
+
     private void loadUI() {
         etDNIBuscar = findViewById(R.id.etDNIBuscar);
         etNombresDuenio = findViewById(R.id.etNombresDuenio);
@@ -236,6 +281,7 @@ public class PetForm extends AppCompatActivity {
 
         btBuscarCliente = findViewById(R.id.btBuscarCliente);
         btSeleccionarFoto = findViewById(R.id.btSeleccionarFoto);
+        btQuitarFoto = findViewById(R.id.btQuitarFoto);
         btRegistrarMascota = findViewById(R.id.btRegistrarMascota);
     }
 }
