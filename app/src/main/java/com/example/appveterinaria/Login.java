@@ -45,6 +45,13 @@ public class Login extends AppCompatActivity {
         });
     }
 
+    private void resetInputs() {
+        etNombreUsuario.setText(null);
+        etContrasenia.setText(null);
+
+        etNombreUsuario.requestFocus();
+    }
+
     private void validateInputs() {
         boolean nombreUsuario = etNombreUsuario.getText().toString().trim().isEmpty();
         boolean contrasenia = etContrasenia.getText().toString().trim().isEmpty();
@@ -72,6 +79,7 @@ public class Login extends AppCompatActivity {
                     if (login) {
                         Utils.showToast(context, "¡Bienvenido " + nombres + "!");
                         Utils.openActivity(context, MainActivity.class);
+                        resetInputs();
                     } else {
                         Utils.showToast(context, jsonObject.getString("message"));
                     }
@@ -82,7 +90,7 @@ public class Login extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.e("Error", error.toString());
+                Utils.showToast(context, "Problemas con el servidor");
             }
         }){
             @Nullable
