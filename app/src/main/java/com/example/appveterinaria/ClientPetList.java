@@ -3,6 +3,7 @@ package com.example.appveterinaria;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -57,8 +58,10 @@ public class ClientPetList extends AppCompatActivity {
         lvMascotasDuenio.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Integer id = dataID.get(i);
-                Utils.showToast(context, "El id es: " + id.toString());
+                Bundle extras = new Bundle();
+                extras.putInt("idmascota", dataID.get(i));
+
+                Utils.openActivity(context, PetDetails.class, extras);
             }
         });
     }
