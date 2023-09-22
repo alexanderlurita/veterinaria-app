@@ -50,7 +50,6 @@ public class PetDetails extends AppCompatActivity {
                 resetUI();
                 try {
                     String photoName = response.getString("fotografia");
-                    Log.i("URL IMAGEN", response.getString("fotografia"));
                     getImage(photoName);
 
                     tvNombreMascotaDet.setText(response.getString("nombre"));
@@ -74,7 +73,7 @@ public class PetDetails extends AppCompatActivity {
 
     private void getImage(String nameFile) {
         String URL = !nameFile.equals("null")
-                ? Utils.URL + nameFile
+                ? Utils.URLImages + nameFile
                 : "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Image_not_available.png/640px-Image_not_available.png";
         ImageRequest imageRequest = new ImageRequest(URL, new Response.Listener<Bitmap>() {
             @Override
