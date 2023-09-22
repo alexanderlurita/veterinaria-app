@@ -9,7 +9,7 @@ import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button btRegistroCliente, btRegistroMascota;
+    Button btRegistroCliente, btRegistroMascota, btClienteListaMascotas;
     Context context = this;
 
     @Override
@@ -32,10 +32,18 @@ public class MainActivity extends AppCompatActivity {
                 Utils.openActivity(context, PetForm.class);
             }
         });
+
+        btClienteListaMascotas.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Utils.openActivity(context, ClientPetList.class);
+            }
+        });
     }
 
     private void loadUI() {
         btRegistroCliente = findViewById(R.id.btRegistroCliente);
         btRegistroMascota = findViewById(R.id.btRegistroMascota);
+        btClienteListaMascotas = findViewById(R.id.btClienteListaMascotas);
     }
 }
