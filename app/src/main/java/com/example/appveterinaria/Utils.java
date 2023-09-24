@@ -7,8 +7,8 @@ import android.widget.Toast;
 
 public class Utils {
 
-    public static final String URL = "http://192.168.0.109/veterinaria/controllers/";
-    public static final String URLImages = "http://192.168.0.109/veterinaria/images/uploads/";
+    public static final String URL = "https://overhanging-bias.000webhostapp.com/controllers/";
+    public static final String URLImages = "https://overhanging-bias.000webhostapp.com/images/uploads/";
 
     public static void openActivity(Context context, Class activity) {
         Intent intent = new Intent(context, activity);
