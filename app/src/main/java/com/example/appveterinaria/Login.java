@@ -26,7 +26,7 @@ import java.util.Map;
 public class Login extends AppCompatActivity {
 
     EditText etNombreUsuario, etContrasenia;
-    Button btIniciarSesion;
+    Button btIniciarSesion, btAbrirRegistro;
 
     Context context = this;
 
@@ -41,6 +41,13 @@ public class Login extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 validateInputs();
+            }
+        });
+
+        btAbrirRegistro.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Utils.openActivity(context, Register.class);
             }
         });
     }
@@ -78,8 +85,17 @@ public class Login extends AppCompatActivity {
 
                     if (login) {
                         Utils.showToast(context, "¡Bienvenido " + nombres + "!");
+                        int idCliente = jsonObject.getInt("idcliente");
+                        String dniCliente = jsonObject.getString("dni");
+                        String tipoCliente = jsonObject.getString("tipocliente");
+
+                        Utils.setGlobalIdCliente(idCliente);
+                        Utils.setDniCliente(dniCliente);
+                        Utils.setTipoCliente(tipoCliente);
+
                         Utils.openActivity(context, MainActivity.class);
                         resetInputs();
+                        finish();
                     } else {
                         Utils.showToast(context, jsonObject.getString("message"));
                     }
@@ -111,6 +127,7 @@ public class Login extends AppCompatActivity {
         etNombreUsuario = findViewById(R.id.etNombreUsuario);
         etContrasenia = findViewById(R.id.etContrasenia);
 
-        btIniciarSesion = findViewById(R.id.btIniciarSesión);
+        btIniciarSesion = findViewById(R.id.btIniciarSesion);
+        btAbrirRegistro = findViewById(R.id.btAbrirRegistro);
     }
 }

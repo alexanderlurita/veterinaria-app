@@ -16,44 +16,51 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="30dp" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textStyle="bold"
-        android:textSize="16sp"
-        android:text="DATOS DEL DUEÑO"
-        android:layout_marginBottom="10dp" />
-
     <LinearLayout
+        android:id="@+id/llDatosDuenio"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_marginBottom="30dp"
+        android:orientation="vertical" >
 
-        <EditText
-            android:id="@+id/etDNIBuscar"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:inputType="number"
-            android:maxLength="8"
-            android:hint="DNI" />
-
-        <Button
-            android:id="@+id/btBuscarCliente"
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Buscar"
-            android:layout_gravity="center_vertical" />
-    </LinearLayout>
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:text="DATOS DEL DUEÑO"
+            android:layout_marginBottom="10dp" />
 
-    <EditText
-        android:id="@+id/etNombresDuenio"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:inputType="text"
-        android:focusable="false"
-        android:hint="Nombres y apellidos" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/etDNIBuscar"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:inputType="number"
+                android:maxLength="8"
+                android:hint="DNI" />
+
+            <Button
+                android:id="@+id/btBuscarCliente"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Buscar"
+                android:layout_gravity="center_vertical" />
+        </LinearLayout>
+        <EditText
+            android:id="@+id/etNombresDuenio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:inputType="text"
+            android:focusable="false"
+            android:hint="Nombres y apellidos" />
+    </LinearLayout>
 
     <TextView
         android:layout_width="wrap_content"
@@ -61,7 +68,6 @@
         android:textStyle="bold"
         android:textSize="16sp"
         android:text="DATOS DE LA MASCOTA"
-        android:layout_marginTop="30dp"
         android:layout_marginBottom="10dp" />
 
     <ScrollView

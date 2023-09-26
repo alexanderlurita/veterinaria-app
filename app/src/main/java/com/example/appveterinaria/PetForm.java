@@ -19,6 +19,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -54,6 +55,7 @@ public class PetForm extends AppCompatActivity {
     RadioButton rbMacho, rbHembra;
     ImageView ivFotografia;
     Button btBuscarCliente, btSeleccionarFoto, btRegistrarMascota, btQuitarFoto;
+    LinearLayout llDatosDuenio;
 
     String idCliente, idRaza, nombreMascota, fotografia, color, genero;
     List<String> listaRazas = new ArrayList<>();
@@ -69,6 +71,11 @@ public class PetForm extends AppCompatActivity {
 
         loadUI();
         getRaces();
+
+        if (Utils.getTipoCliente().equals("E")) {
+            llDatosDuenio.setVisibility(View.GONE);
+            idCliente = String.valueOf(Utils.getGlobalIdCliente());
+        }
 
         btBuscarCliente.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -291,5 +298,7 @@ public class PetForm extends AppCompatActivity {
         btSeleccionarFoto = findViewById(R.id.btSeleccionarFoto);
         btQuitarFoto = findViewById(R.id.btQuitarFoto);
         btRegistrarMascota = findViewById(R.id.btRegistrarMascota);
+
+        llDatosDuenio = findViewById(R.id.llDatosDuenio);
     }
 }

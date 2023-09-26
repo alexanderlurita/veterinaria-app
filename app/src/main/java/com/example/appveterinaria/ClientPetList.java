@@ -64,6 +64,12 @@ public class ClientPetList extends AppCompatActivity {
                 Utils.openActivity(context, PetDetails.class, extras);
             }
         });
+
+        if (Utils.getTipoCliente().equals("E")) {
+            etDNIDuenioBuscar.setText(Utils.getDniCliente());
+            etDNIDuenioBuscar.setFocusable(false);
+            btBuscarDuenio.performClick();
+        }
     }
 
     private void showPetDetails(Integer petId) {

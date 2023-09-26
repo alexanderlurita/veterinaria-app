@@ -4,6 +4,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -17,13 +18,18 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.HashMap;
 import java.util.Map;
 
-public class ClientForm extends AppCompatActivity {
+public class Register extends AppCompatActivity {
 
-    EditText etApellidos, etNombres, etDNI, etClaveAcceso, etConfirmarClaveAcceso;
-    Button btRegistrarCliente;
+    EditText etApellidosRegistro, etNombresRegistro, etDNIRegistro, etClaveAccesoRegistro, etConfirmarClaveAccesoRegistro;
+
+    Button btRegistrarse;
+
     Context context = this;
 
     String apellidos, nombres, dni, claveAcceso, confirmarClaveAcceso;
@@ -31,11 +37,11 @@ public class ClientForm extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_client_form);
+        setContentView(R.layout.activity_register);
 
         loadUI();
 
-        btRegistrarCliente.setOnClickListener(new View.OnClickListener() {
+        btRegistrarse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 validateInputs();
@@ -43,22 +49,12 @@ public class ClientForm extends AppCompatActivity {
         });
     }
 
-    private void resetInputs() {
-        etApellidos.setText(null);
-        etNombres.setText(null);
-        etDNI.setText(null);
-        etClaveAcceso.setText(null);
-        etConfirmarClaveAcceso.setText(null);
-
-        etApellidos.requestFocus();
-    }
-
     private void validateInputs() {
-        apellidos = etApellidos.getText().toString().trim();
-        nombres = etNombres.getText().toString().trim();
-        dni = etDNI.getText().toString().trim();
-        claveAcceso = etClaveAcceso.getText().toString().trim();
-        confirmarClaveAcceso = etConfirmarClaveAcceso.getText().toString().trim();
+        apellidos = etApellidosRegistro.getText().toString().trim();
+        nombres = etNombresRegistro.getText().toString().trim();
+        dni = etDNIRegistro.getText().toString().trim();
+        claveAcceso = etClaveAccesoRegistro.getText().toString().trim();
+        confirmarClaveAcceso = etConfirmarClaveAccesoRegistro.getText().toString().trim();
 
         if (apellidos.isEmpty() || nombres.isEmpty() || dni.isEmpty() || claveAcceso.isEmpty()) {
             Utils.showToast(context, "Complete todos los datos");
@@ -74,12 +70,25 @@ public class ClientForm extends AppCompatActivity {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                if (!response.contains("LAST_INSERT_ID()")) {
-                    Utils.showToast(context, "Problemas al registrar");
-                } else {
-                    Utils.showToast(context, "Registrado correctamente");
-                    resetInputs();
+                try {
+                    if (response.contains("LAST_INSERT_ID()")) {
+                        Utils.showToast(context, "Registrado correctamente");
+
+                        JSONObject jsonObject = new JSONObject(response);
+                        int idCliente = jsonObject.getInt("LAST_INSERT_ID()");
+
+                        Utils.setGlobalIdCliente(idCliente);
+                        Utils.setDniCliente(dni);
+                        Utils.setTipoCliente("E");
+
+                        Utils.openActivityAndClearStack(context, MainActivity.class);
+                    } else {
+                        Utils.showToast(context, "Problemas al registrar");
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
+
             }
         }, new Response.ErrorListener() {
             @Override
@@ -104,12 +113,12 @@ public class ClientForm extends AppCompatActivity {
     }
 
     private void loadUI() {
-        etApellidos = findViewById(R.id.etApellidos);
-        etNombres = findViewById(R.id.etNombres);
-        etDNI = findViewById(R.id.etDNI);
-        etClaveAcceso = findViewById(R.id.etClaveAcceso);
-        etConfirmarClaveAcceso = findViewById(R.id.etConfirmarClaveAcceso);
+        etApellidosRegistro = findViewById(R.id.etApellidosRegistro);
+        etNombresRegistro = findViewById(R.id.etNombresRegistro);
+        etDNIRegistro = findViewById(R.id.etDNIRegistro);
+        etClaveAccesoRegistro = findViewById(R.id.etClaveAccesoRegistro);
+        etConfirmarClaveAccesoRegistro = findViewById(R.id.etConfirmarClaveAccesoRegistro);
 
-        btRegistrarCliente = findViewById(R.id.btRegistrarCliente);
+        btRegistrarse = findViewById(R.id.btRegistrarse);
     }
 }

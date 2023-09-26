@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Login">
+
+    <ImageView
+        android:id="@+id/ivLogoRegister"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="80dp"
+        app:srcCompat="@drawable/logoveterinariasinfondo" />
+
+    <EditText
+        android:id="@+id/etApellidosRegistro"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/ivLogoRegister"
+        android:inputType="textCapSentences"
+        android:hint="Apellidos"
+        android:maxLength="50"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginTop="40dp" />
+
+    <EditText
+        android:id="@+id/etNombresRegistro"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/etApellidosRegistro"
+        android:inputType="textCapSentences"
+        android:hint="Nombres"
+        android:maxLength="50"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginTop="20dp" />
+
+    <EditText
+        android:id="@+id/etDNIRegistro"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/etNombresRegistro"
+        android:inputType="number"
+        android:hint="DNI"
+        android:maxLength="8"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginTop="20dp" />
+
+    <EditText
+        android:id="@+id/etClaveAccesoRegistro"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/etDNIRegistro"
+        android:inputType="textPassword"
+        android:hint="Contraseña"
+        android:maxLength="40"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginTop="20dp" />
+
+    <EditText
+        android:id="@+id/etConfirmarClaveAccesoRegistro"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/etClaveAccesoRegistro"
+        android:inputType="textPassword"
+        android:hint="Confirmar contraseña"
+        android:maxLength="40"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginTop="20dp" />
+
+    <Button
+        android:id="@+id/btRegistrarse"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/etConfirmarClaveAccesoRegistro"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginTop="30dp"
+        android:text="Registrar" />
+
+</RelativeLayout>

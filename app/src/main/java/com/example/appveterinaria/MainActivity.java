@@ -6,6 +6,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -18,6 +19,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         loadUI();
+
+        if (Utils.getTipoCliente().equals("E")) {
+            btRegistroCliente.setVisibility(View.GONE);
+        }
 
         btRegistroCliente.setOnClickListener(new View.OnClickListener() {
             @Override
