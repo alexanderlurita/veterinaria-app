@@ -128,8 +128,7 @@ public class PetForm extends AppCompatActivity {
     }
 
     private void registerPet() {
-        String URL = Utils.URL + "mascota.controller.php";
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Utils.URLMascota, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 if (!response.isEmpty()) {
@@ -186,7 +185,7 @@ public class PetForm extends AppCompatActivity {
     }
 
     private void getRaces() {
-        String URL = Utils.URL + "mascota.controller.php?operacion=listRaces";
+        String URL = Utils.URLMascota + "?operacion=listRaces";
 
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
                 Request.Method.GET,
@@ -225,7 +224,7 @@ public class PetForm extends AppCompatActivity {
 
     private void searchClient() {
         String dni = etDNIBuscar.getText().toString().trim();
-        String URL = Utils.URL + "cliente.controller.php?operacion=search&dni=" + dni;
+        String URL = Utils.URLCliente + "?operacion=search&dni=" + dni;
 
         if (dni.isEmpty() || dni.length() < 8) {
             Utils.showToast(context, "Escriba el DNI");

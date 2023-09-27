@@ -72,17 +72,13 @@ public class ClientPetList extends AppCompatActivity {
         }
     }
 
-    private void showPetDetails(Integer petId) {
-
-    }
-
     private void getPets(String dni)    {
         dataID.clear();
         dataList.clear();
         adapter = new MascotaAdapter(context, dataList);
         lvMascotasDuenio.setAdapter(adapter);
 
-        String URL = Utils.URL + "mascota.controller.php?operacion=listPetsByOwner&dni=" + dni;
+        String URL = Utils.URLMascota + "?operacion=listPetsByOwner&dni=" + dni;
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, URL, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
@@ -114,7 +110,7 @@ public class ClientPetList extends AppCompatActivity {
 
     private void searchClient() {
         dni = etDNIDuenioBuscar.getText().toString().trim();
-        String URL = Utils.URL + "cliente.controller.php?operacion=search&dni=" + dni;
+        String URL = Utils.URLCliente + "?operacion=search&dni=" + dni;
 
         if (dni.isEmpty() || dni.length() < 8) {
             Utils.showToast(context, "Escriba el DNI");

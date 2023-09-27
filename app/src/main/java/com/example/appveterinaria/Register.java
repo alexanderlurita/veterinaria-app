@@ -66,13 +66,13 @@ public class Register extends AppCompatActivity {
     }
 
     private void registerClient() {
-        String URL = Utils.URL + "cliente.controller.php";
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Utils.URLCliente, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
                     if (response.contains("LAST_INSERT_ID()")) {
                         Utils.showToast(context, "Registrado correctamente");
+                        Utils.showToast(context, "¡Bienvenido " + nombres + " " + apellidos + "!");
 
                         JSONObject jsonObject = new JSONObject(response);
                         int idCliente = jsonObject.getInt("LAST_INSERT_ID()");

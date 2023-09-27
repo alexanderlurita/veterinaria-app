@@ -42,7 +42,7 @@ public class PetDetails extends AppCompatActivity {
     }
 
     private void getData(int idmascota) {
-        String URL = Utils.URL + "mascota.controller.php?operacion=search&idmascota=" + idmascota;
+        String URL = Utils.URLMascota + "?operacion=search&idmascota=" + idmascota;
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, URL, null, new Response.Listener<JSONObject>() {
             @Override

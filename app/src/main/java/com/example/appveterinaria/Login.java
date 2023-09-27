@@ -71,11 +71,10 @@ public class Login extends AppCompatActivity {
     }
 
     private void login() {
-        String URL = Utils.URL + "cliente.controller.php";
         String nombreUsuario = etNombreUsuario.getText().toString().trim();
         String contrasenia = etContrasenia.getText().toString().trim();
 
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Utils.URLCliente, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {

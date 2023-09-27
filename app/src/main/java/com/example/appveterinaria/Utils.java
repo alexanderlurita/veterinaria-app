@@ -7,8 +7,10 @@ import android.widget.Toast;
 
 public class Utils {
 
-    public static final String URL = "http://192.168.1.117/veterinaria/controllers/";
-    public static final String URLImages = "http://192.168.1.117/veterinaria/images/uploads/";
+    public static final String URL_BASE = "https://overhanging-bias.000webhostapp.com/";
+    public static final String URLCliente = URL_BASE + "controllers/cliente.controller.php";
+    public static final String URLMascota = URL_BASE + "controllers/mascota.controller.php";
+    public static final String URLImages = URL_BASE + "images/uploads/";
 
     private static int globalIdCliente;
     private static String dniCliente;

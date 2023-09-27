@@ -70,8 +70,7 @@ public class ClientForm extends AppCompatActivity {
     }
 
     private void registerClient() {
-        String URL = Utils.URL + "cliente.controller.php";
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Utils.URLCliente, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 if (!response.contains("LAST_INSERT_ID()")) {
